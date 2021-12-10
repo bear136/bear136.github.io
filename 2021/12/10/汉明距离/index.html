@@ -20,29 +20,31 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.8.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
-<meta name="description" content="题目： 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和">
+<meta name="description" content="汉明距离题目：两个整数之间的 汉明距离 指的是这两个数字对应二进制位不同的位置的数目。 给你两个整数 x 和 y，计算并返回它们之间的汉明距离。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最大子序和">
-<meta property="og:url" content="http://example.com/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/index.html">
+<meta property="og:title" content="汉明距离">
+<meta property="og:url" content="http://example.com/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/index.html">
 <meta property="og:site_name" content="小熊&amp;博客">
-<meta property="og:description" content="题目： 给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和">
+<meta property="og:description" content="汉明距离题目：两个整数之间的 汉明距离 指的是这两个数字对应二进制位不同的位置的数目。 给你两个整数 x 和 y，计算并返回它们之间的汉明距离。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-12-07T14:31:50.438Z">
-<meta property="article:modified_time" content="2021-12-10T11:25:56.183Z">
+<meta property="og:image" content="https://sm.ms/image/9idTxyvaBYEMmc8">
+<meta property="og:image" content="https://sm.ms/image/Hy1csKG7VR2IOPm">
+<meta property="article:published_time" content="2021-12-10T11:17:47.158Z">
+<meta property="article:modified_time" content="2021-12-10T11:34:46.275Z">
 <meta property="article:author" content="小熊不叹气">
-<meta property="article:tag" content="分而治之">
-<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="位运算">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sm.ms/image/9idTxyvaBYEMmc8">
 
 
-<link rel="canonical" href="http://example.com/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/">
+<link rel="canonical" href="http://example.com/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/","path":"2021/12/07/最大子序和/","title":"最大子序和"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/","path":"2021/12/10/汉明距离/","title":"汉明距离"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>最大子序和 | 小熊&博客</title>
+<title>汉明距离 | 小熊&博客</title>
   
 
 
@@ -148,7 +150,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E4%B8%80%EF%BC%9A"><span class="nav-text">实例一：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BA%8C%EF%BC%9A"><span class="nav-text">示例二：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%89%EF%BC%9A"><span class="nav-text">示例三：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E5%9B%9B%EF%BC%9A"><span class="nav-text">示例四：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF"><span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3%EF%BC%9A"><span class="nav-text">题解：</span></a></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB"><span class="nav-text">汉明距离</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%80%EF%BC%9A"><span class="nav-text">示例一：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BA%8C%EF%BC%9A"><span class="nav-text">示例二：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="nav-text">解题思路：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80%EF%BC%9A%E8%B0%83%E7%94%A8toString%E6%96%B9%E6%B3%95%E9%81%8D%E5%8E%86%E5%AE%9E%E7%8E%B0"><span class="nav-text">方法一：调用toString方法遍历实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C%EF%BC%9A%E7%A7%BB%E4%BD%8D%E5%AE%9E%E7%8E%B0%E4%BD%8D%E8%AE%A1%E6%95%B0"><span class="nav-text">方法二：移位实现位计数</span></a></li></ol></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -225,7 +227,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -238,7 +240,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          最大子序和
+          汉明距离
         </h1>
 
         <div class="post-meta-container">
@@ -248,16 +250,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2021-12-07 22:31:50" itemprop="dateCreated datePublished" datetime="2021-12-07T22:31:50+08:00">2021-12-07</time>
+      <time title="创建时间：2021-12-10 19:17:47 / 修改时间：19:34:46" itemprop="dateCreated datePublished" datetime="2021-12-10T19:17:47+08:00">2021-12-10</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2021-12-10 19:25:56" itemprop="dateModified" datetime="2021-12-10T19:25:56+08:00">2021-12-10</time>
-      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -278,26 +274,29 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p><strong>题目：</strong> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和</p>
+        <h3 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h3><p><strong>题目：</strong>两个整数之间的 <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB">汉明距离</a> 指的是这两个数字对应二进制位不同的位置的数目。</p>
+<p>给你两个整数 <code>x</code> 和 <code>y</code>，计算并返回它们之间的汉明距离。</p>
 <span id="more"></span>
 
-<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出：6</span><br><span class="line">解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</span><br></pre></td></tr></table></figure>
+<h6 id="示例一："><a href="#示例一：" class="headerlink" title="示例一："></a>示例一：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入：x = 1, y = 4</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">1   (0 0 0 1)</span><br><span class="line">4   (0 1 0 0)</span><br><span class="line">       ↑   ↑</span><br><span class="line">上面的箭头指出了对应二进制位不同的位置。</span><br></pre></td></tr></table></figure>
 
-<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：x = 3, y = 1</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
 
-<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+<h4 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h4><p>两个整数之间的汉明距离是对应位置上数字不同的位数。</p>
+<p>根据以上定义，我们使用异或运算，记为 <code>⊕</code>，当且仅当输入位不同时输出为 1。</p>
+<img src='https://sm.ms/image/9idTxyvaBYEMmc8' style='height:300px,width:300px'>
 
-<h6 id="示例四："><a href="#示例四：" class="headerlink" title="示例四："></a>示例四：</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [-1]</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
+<p>我们只需要判断出进行异或操作后得到的二进制数中含有多少个<code>1</code>即可</p>
+<h5 id="方法一：调用toString方法遍历实现"><a href="#方法一：调用toString方法遍历实现" class="headerlink" title="方法一：调用toString方法遍历实现"></a>方法一：调用<code>toString</code>方法遍历实现</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @<span class="keyword">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">var</span> hammingDistance = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = x^y                <span class="comment">//进行异或操作</span></span><br><span class="line">  res = res.toString(<span class="number">2</span>)        <span class="comment">//将异或操作后的数字变为二进制字符串</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;res.length;i++)&#123;         <span class="comment">//遍历字符串获得含有多少个1</span></span><br><span class="line">       <span class="keyword">if</span>(res[i]===<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">       index++</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> index</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<hr>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><ul>
-<li>  首先对数组进行遍历，当前最大连续子序列和为 sum，结果为 max</li>
-<li>  如果 sum &gt; 0，则说明 sum 对结果有增益效果，则 sum 保留并加上当前遍历数字</li>
-<li>  如果 sum &lt;= 0，则说明 sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字</li>
-<li>  每次比较 sum 和 max 的大小，将最大值置为 max，遍历结束返回结果</li>
-<li>  时间复杂度：O(n)</li>
+<h5 id="方法二：移位实现位计数"><a href="#方法二：移位实现位计数" class="headerlink" title="方法二：移位实现位计数"></a>方法二：移位实现位计数</h5><p><strong>思路及其实现：</strong><br><img src='https://sm.ms/image/Hy1csKG7VR2IOPm' style='height:300px,width:300px'></p>
+<p>具体地，记 <code>s=x^y</code>，我们可以不断地检查 <code>s</code>的最低位，如果最低位为 <code>1</code>，那么令计数器加一，然后我们令 <code>s</code> 整体右移一位，这样 <code>s</code> 的最低位将被舍去，原本的次低位就变成了新的最低位。我们重复这个过程直到 <code>s=0</code> 为止。这样计数器中就累计了 <code>s</code> 的二进制表示中 <code>1</code> 的数量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var hammingDistance = function(x, y) &#123;</span><br><span class="line">    let s = x ^ y, ret = 0;</span><br><span class="line">    while (s != 0) &#123;</span><br><span class="line">        ret += s &amp; 1;</span><br><span class="line">        s &gt;&gt;= 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>  时间复杂度：<code>O( log C )</code>,其中 C 是元素的数据范围，本题中的<code>logC = 31</code></li>
+<li>  空间复杂度：<code>O ( 1 )</code></li>
 </ul>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> max = sum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum = nums[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -333,7 +332,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="http://example.com/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/" title="最大子序和">http://example.com/2021/12/07/最大子序和/</a>
+      <a href="http://example.com/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/" title="汉明距离">http://example.com/2021/12/10/汉明距离/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-Hans" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -342,18 +341,20 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B/" rel="tag"># 分而治之</a>
-              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="tag"># 位运算</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2021/12/10/%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/" rel="prev" title="多数元素">
+                  <i class="fa fa-chevron-left"></i> 多数元素
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2021/12/10/%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0/" rel="next" title="多数元素">
-                  多数元素 <i class="fa fa-chevron-right"></i>
+                <a href="/2021/12/10/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" rel="next" title="两数相加">
+                  两数相加 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
