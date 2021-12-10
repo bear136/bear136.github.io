@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>两数相加</title>
+    <url>/2021/12/10/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    <content><![CDATA[<h4 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h4><h5 id="题目描述-："><a href="#题目描述-：" class="headerlink" title="题目描述 ："></a><strong>题目描述 ：</strong></h5><p>给你两个 <strong>非空</strong> 的链表，表示两个非负的整数。它们每位数字都是按照 <strong>逆序</strong> 的方式存储的，并且每个节点只能存储 <strong>一位</strong> 数字。</p>
+<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
+<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<span id="more"></span>
+
+<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [ 2,4,3 ], l2 = [ 5,6,4 ]</span><br><span class="line">输出：[ 7,0,8 ]</span><br><span class="line">解释：342 + 465 = 807.</span><br></pre></td></tr></table></figure>
+
+<h6 id="实例二："><a href="#实例二：" class="headerlink" title="实例二："></a>实例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [0], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]</span><br><span class="line">输出：[8,9,9,9,0,0,0,1]</span><br></pre></td></tr></table></figure>
+
+<h5 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h5><p>由于这两个链表的每一位数字都是逆序排列，我们只需要对这两个链表进行按位相加，如果链表长度不够则进行添 0 操作，如果两个数的和大于 10，则进位数为 1；如果小于 0，则进位数则为 0；最后我们只需要将两数之和加上进位数对 10 取余操作后的数字存入新的链表之中即可</p>
+<h5 id="解题代码："><a href="#解题代码：" class="headerlink" title="解题代码："></a>解题代码：</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> addTwoNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="keyword">new</span> ListNode(<span class="string">&#x27;0&#x27;</span>); <span class="comment">//首先定义一个头节点</span></span><br><span class="line">    <span class="keyword">let</span> head = sum; <span class="comment">//将头节点用head进行引用</span></span><br><span class="line">    <span class="keyword">let</span> add = <span class="number">0</span>; <span class="comment">//进位数首先为0</span></span><br><span class="line">    <span class="keyword">while</span> (add || l1 || l2) &#123;</span><br><span class="line">        <span class="comment">//如果l1,l2链表遍历结束且进位数位0了则结束遍历</span></span><br><span class="line">        <span class="keyword">let</span> res1 = l1 !== <span class="literal">null</span> ? l1.val : <span class="number">0</span>; <span class="comment">//记录当前位下的l1链表的值，若没有则用0来表示</span></span><br><span class="line">        <span class="keyword">let</span> res2 = l2 !== <span class="literal">null</span> ? l2.val : <span class="number">0</span>; <span class="comment">//记录当前位下的l2</span></span><br><span class="line">        <span class="keyword">let</span> res = res1 + res2 + add; <span class="comment">//  和即为两数的和加上进位的数</span></span><br><span class="line">        add = res &gt;= <span class="number">10</span> ? <span class="number">1</span> : <span class="number">0</span>; <span class="comment">//判断是否进位</span></span><br><span class="line">        sum.next = <span class="keyword">new</span> ListNode(res % <span class="number">10</span>); <span class="comment">//将两数之和的个位存入新链表中</span></span><br><span class="line">        sum = sum.next; <span class="comment">//新链表指向下一个节点</span></span><br><span class="line">        <span class="keyword">if</span> (l1) l1 = l1.next; <span class="comment">//指向下一个节点</span></span><br><span class="line">        <span class="keyword">if</span> (l2) l2 = l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head.next; <span class="comment">//最终将新链表返回</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法练习</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三数之和</title>
     <url>/2021/12/10/%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<h3 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h3><h5 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h5><p>给你一个包含<code>n</code>个整数的数组 <code>nums</code>，判断<code> nums</code> 中是否存在三个元素 a，b，c ，使得<code>a + b + c = 0</code>？请你找出所有和为 0 且不重复的三元组。</p>
@@ -28,91 +52,6 @@
       </categories>
       <tags>
         <tag>双指针</tag>
-        <tag>循环遍历</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>两数相加</title>
-    <url>/2021/12/10/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
-    <content><![CDATA[<h4 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h4><h5 id="题目描述-："><a href="#题目描述-：" class="headerlink" title="题目描述 ："></a><strong>题目描述 ：</strong></h5><p>给你两个 <strong>非空</strong> 的链表，表示两个非负的整数。它们每位数字都是按照 <strong>逆序</strong> 的方式存储的，并且每个节点只能存储 <strong>一位</strong> 数字。</p>
-<p>请你将两个数相加，并以相同形式返回一个表示和的链表。</p>
-<p>你可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
-<span id="more"></span>
-
-<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [ 2,4,3 ], l2 = [ 5,6,4 ]</span><br><span class="line">输出：[ 7,0,8 ]</span><br><span class="line">解释：342 + 465 = 807.</span><br></pre></td></tr></table></figure>
-
-<h6 id="实例二："><a href="#实例二：" class="headerlink" title="实例二："></a>实例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [0], l2 = [0]</span><br><span class="line">输出：[0]</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]</span><br><span class="line">输出：[8,9,9,9,0,0,0,1]</span><br></pre></td></tr></table></figure>
-
-<h5 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h5><p>由于这两个链表的每一位数字都是逆序排列，我们只需要对这两个链表进行按位相加，如果链表长度不够则进行添 0 操作，如果两个数的和大于 10，则进位数为 1；如果小于 0，则进位数则为 0；最后我们只需要将两数之和加上进位数对 10 取余操作后的数字存入新的链表之中即可</p>
-<h5 id="解题代码："><a href="#解题代码：" class="headerlink" title="解题代码："></a>解题代码：</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * function ListNode(val, next) &#123;</span></span><br><span class="line"><span class="comment"> *     this.val = (val===undefined ? 0 : val)</span></span><br><span class="line"><span class="comment"> *     this.next = (next===undefined ? null : next)</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l1</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;ListNode&#125;</span> <span class="variable">l2</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;ListNode&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> addTwoNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">l1, l2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="keyword">new</span> ListNode(<span class="string">&#x27;0&#x27;</span>); <span class="comment">//首先定义一个头节点</span></span><br><span class="line">    <span class="keyword">let</span> head = sum; <span class="comment">//将头节点用head进行引用</span></span><br><span class="line">    <span class="keyword">let</span> add = <span class="number">0</span>; <span class="comment">//进位数首先为0</span></span><br><span class="line">    <span class="keyword">while</span> (add || l1 || l2) &#123;</span><br><span class="line">        <span class="comment">//如果l1,l2链表遍历结束且进位数位0了则结束遍历</span></span><br><span class="line">        <span class="keyword">let</span> res1 = l1 !== <span class="literal">null</span> ? l1.val : <span class="number">0</span>; <span class="comment">//记录当前位下的l1链表的值，若没有则用0来表示</span></span><br><span class="line">        <span class="keyword">let</span> res2 = l2 !== <span class="literal">null</span> ? l2.val : <span class="number">0</span>; <span class="comment">//记录当前位下的l2</span></span><br><span class="line">        <span class="keyword">let</span> res = res1 + res2 + add; <span class="comment">//  和即为两数的和加上进位的数</span></span><br><span class="line">        add = res &gt;= <span class="number">10</span> ? <span class="number">1</span> : <span class="number">0</span>; <span class="comment">//判断是否进位</span></span><br><span class="line">        sum.next = <span class="keyword">new</span> ListNode(res % <span class="number">10</span>); <span class="comment">//将两数之和的个位存入新链表中</span></span><br><span class="line">        sum = sum.next; <span class="comment">//新链表指向下一个节点</span></span><br><span class="line">        <span class="keyword">if</span> (l1) l1 = l1.next; <span class="comment">//指向下一个节点</span></span><br><span class="line">        <span class="keyword">if</span> (l2) l2 = l2.next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> head.next; <span class="comment">//最终将新链表返回</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法练习</category>
-      </categories>
-      <tags>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>最大子序和</title>
-    <url>/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
-    <content><![CDATA[<p><strong>题目：</strong> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和</p>
-<span id="more"></span>
-
-<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出：6</span><br><span class="line">解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例四："><a href="#示例四：" class="headerlink" title="示例四："></a>示例四：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-1]</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><ul>
-<li>  首先对数组进行遍历，当前最大连续子序列和为 sum，结果为 max</li>
-<li>  如果 sum &gt; 0，则说明 sum 对结果有增益效果，则 sum 保留并加上当前遍历数字</li>
-<li>  如果 sum &lt;= 0，则说明 sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字</li>
-<li>  每次比较 sum 和 max 的大小，将最大值置为 max，遍历结束返回结果</li>
-<li>  时间复杂度：O(n)</li>
-</ul>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> max = sum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum = nums[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法练习</category>
-      </categories>
-      <tags>
-        <tag>分而治之</tag>
-        <tag>动态规划</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>找到所有数组中消失的数字</title>
-    <url>/2021/12/10/%E6%89%BE%E5%88%B0%E6%89%80%E6%9C%89%E6%95%B0%E7%BB%84%E4%B8%AD%E6%B6%88%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
-    <content><![CDATA[<h3 id="找到所有数组中消失的数字"><a href="#找到所有数组中消失的数字" class="headerlink" title="找到所有数组中消失的数字"></a>找到所有数组中消失的数字</h3><p><strong>题目描述：</strong>给你一个含<code>n</code> 个整数的数组 <code>nums</code> ，其中 <code>nums[i]</code> 在区间 <code>[1, n]</code> 内。请你找出所有在 <code>[1, n] </code>范围内但没有出现在 <code>nums </code>中的数字，并以数组的形式返回结果。</p>
-<span id="more"></span>
-
-<h6 id="示例一："><a href="#示例一：" class="headerlink" title="示例一："></a>示例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [4,3,2,7,8,2,3,1]</span><br><span class="line">输出：[5,6]</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1,1]</span><br><span class="line">输出：[2]</span><br></pre></td></tr></table></figure>
-
-<h5 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h5><ul>
-<li><h6 id="解题思路一："><a href="#解题思路一：" class="headerlink" title="解题思路一："></a>解题思路一：</h6><ul>
-<li>  <code>n</code>是<code>nums</code>数组的长度，当遍历<code>nums</code>时只需要验证<code>nums</code>数组中是否含有循环变量<code>i+1</code>即可，如果没有则只需要将<code>i+1</code>添加至新数组<code>arr</code>中即可，最后返回新数组<code>arr</code></li>
-</ul>
-</li>
-<li><h6 id="解题思路二：-原地修改"><a href="#解题思路二：-原地修改" class="headerlink" title="解题思路二：(原地修改)"></a>解题思路二：(原地修改)</h6></li>
-<li><p>请参考下面链接（暂时还未掌握）</p>
-<p>  <a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/solution/zhao-dao-suo-you-shu-zu-zhong-xiao-shi-d-mabl/">https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/solution/zhao-dao-suo-you-shu-zu-zhong-xiao-shi-d-mabl/</a></p>
-</li>
-</ul>
-<h5 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> findDisappearedNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> n = nums.length;</span><br><span class="line">    <span class="keyword">let</span> arr = []; <span class="comment">//定义一个空数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//对nums数组进行遍历</span></span><br><span class="line">        <span class="keyword">if</span> (nums.indexOf(i + <span class="number">1</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//判断nums数组中是否含有该循环变量i+1，若，没有则存入arr</span></span><br><span class="line">            arr.push(i + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法练习</category>
-      </categories>
-      <tags>
         <tag>循环遍历</tag>
       </tags>
   </entry>
@@ -161,6 +100,67 @@
       </tags>
   </entry>
   <entry>
+    <title>找到所有数组中消失的数字</title>
+    <url>/2021/12/10/%E6%89%BE%E5%88%B0%E6%89%80%E6%9C%89%E6%95%B0%E7%BB%84%E4%B8%AD%E6%B6%88%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
+    <content><![CDATA[<h3 id="找到所有数组中消失的数字"><a href="#找到所有数组中消失的数字" class="headerlink" title="找到所有数组中消失的数字"></a>找到所有数组中消失的数字</h3><p><strong>题目描述：</strong>给你一个含<code>n</code> 个整数的数组 <code>nums</code> ，其中 <code>nums[i]</code> 在区间 <code>[1, n]</code> 内。请你找出所有在 <code>[1, n] </code>范围内但没有出现在 <code>nums </code>中的数字，并以数组的形式返回结果。</p>
+<span id="more"></span>
+
+<h6 id="示例一："><a href="#示例一：" class="headerlink" title="示例一："></a>示例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [4,3,2,7,8,2,3,1]</span><br><span class="line">输出：[5,6]</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1,1]</span><br><span class="line">输出：[2]</span><br></pre></td></tr></table></figure>
+
+<h5 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h5><ul>
+<li><h6 id="解题思路一："><a href="#解题思路一：" class="headerlink" title="解题思路一："></a>解题思路一：</h6><ul>
+<li>  <code>n</code>是<code>nums</code>数组的长度，当遍历<code>nums</code>时只需要验证<code>nums</code>数组中是否含有循环变量<code>i+1</code>即可，如果没有则只需要将<code>i+1</code>添加至新数组<code>arr</code>中即可，最后返回新数组<code>arr</code></li>
+</ul>
+</li>
+<li><h6 id="解题思路二：-原地修改"><a href="#解题思路二：-原地修改" class="headerlink" title="解题思路二：(原地修改)"></a>解题思路二：(原地修改)</h6></li>
+<li><p>请参考下面链接（暂时还未掌握）</p>
+<p>  <a href="https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/solution/zhao-dao-suo-you-shu-zu-zhong-xiao-shi-d-mabl/">https://leetcode-cn.com/problems/find-all-numbers-disappeared-in-an-array/solution/zhao-dao-suo-you-shu-zu-zhong-xiao-shi-d-mabl/</a></p>
+</li>
+</ul>
+<h5 id="解题代码"><a href="#解题代码" class="headerlink" title="解题代码"></a>解题代码</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number[]&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> findDisappearedNumbers = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> n = nums.length;</span><br><span class="line">    <span class="keyword">let</span> arr = []; <span class="comment">//定义一个空数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//对nums数组进行遍历</span></span><br><span class="line">        <span class="keyword">if</span> (nums.indexOf(i + <span class="number">1</span>) === -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">//判断nums数组中是否含有该循环变量i+1，若，没有则存入arr</span></span><br><span class="line">            arr.push(i + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法练习</category>
+      </categories>
+      <tags>
+        <tag>循环遍历</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>最大子序和</title>
+    <url>/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
+    <content><![CDATA[<p><strong>题目：</strong> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和</p>
+<span id="more"></span>
+
+<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出：6</span><br><span class="line">解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例四："><a href="#示例四：" class="headerlink" title="示例四："></a>示例四：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-1]</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><ul>
+<li>  首先对数组进行遍历，当前最大连续子序列和为 sum，结果为 max</li>
+<li>  如果 sum &gt; 0，则说明 sum 对结果有增益效果，则 sum 保留并加上当前遍历数字</li>
+<li>  如果 sum &lt;= 0，则说明 sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字</li>
+<li>  每次比较 sum 和 max 的大小，将最大值置为 max，遍历结束返回结果</li>
+<li>  时间复杂度：O(n)</li>
+</ul>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> max = sum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum = nums[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法练习</category>
+      </categories>
+      <tags>
+        <tag>分而治之</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>汉明距离</title>
     <url>/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/</url>
     <content><![CDATA[<h3 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h3><p><strong>题目：</strong>两个整数之间的 <a href="https://baike.baidu.com/item/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB">汉明距离</a> 指的是这两个数字对应二进制位不同的位置的数目。</p>
@@ -173,7 +173,7 @@
 
 <h4 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h4><p>两个整数之间的汉明距离是对应位置上数字不同的位数。</p>
 <p>根据以上定义，我们使用异或运算，记为 <code>⊕</code>，当且仅当输入位不同时输出为 1。</p>
-<p><img src="/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/2.png" alt="异或操作"></p>
+<p><img src="/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/1.png" alt="异或操作"></p>
 <p>我们只需要判断出进行异或操作后得到的二进制数中含有多少个<code>1</code>即可</p>
 <h5 id="方法一：调用toString方法遍历实现"><a href="#方法一：调用toString方法遍历实现" class="headerlink" title="方法一：调用toString方法遍历实现"></a>方法一：调用<code>toString</code>方法遍历实现</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @<span class="keyword">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">var</span> hammingDistance = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = x^y                <span class="comment">//进行异或操作</span></span><br><span class="line">  res = res.toString(<span class="number">2</span>)        <span class="comment">//将异或操作后的数字变为二进制字符串</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;res.length;i++)&#123;         <span class="comment">//遍历字符串获得含有多少个1</span></span><br><span class="line">       <span class="keyword">if</span>(res[i]===<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">       index++</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> index</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
