@@ -56,6 +56,38 @@
       </tags>
   </entry>
   <entry>
+    <title>最大子序和</title>
+    <url>/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
+    <content><![CDATA[<p><strong>题目：</strong> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和</p>
+<span id="more"></span>
+
+<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出：6</span><br><span class="line">解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
+
+<h6 id="示例四："><a href="#示例四：" class="headerlink" title="示例四："></a>示例四：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-1]</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><ul>
+<li>  首先对数组进行遍历，当前最大连续子序列和为 sum，结果为 max</li>
+<li>  如果 sum &gt; 0，则说明 sum 对结果有增益效果，则 sum 保留并加上当前遍历数字</li>
+<li>  如果 sum &lt;= 0，则说明 sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字</li>
+<li>  每次比较 sum 和 max 的大小，将最大值置为 max，遍历结束返回结果</li>
+<li>  时间复杂度：O(n)</li>
+</ul>
+<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> max = sum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum = nums[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>算法练习</category>
+      </categories>
+      <tags>
+        <tag>分而治之</tag>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>找到所有数组中消失的数字</title>
     <url>/2021/12/10/%E6%89%BE%E5%88%B0%E6%89%80%E6%9C%89%E6%95%B0%E7%BB%84%E4%B8%AD%E6%B6%88%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</url>
     <content><![CDATA[<h3 id="找到所有数组中消失的数字"><a href="#找到所有数组中消失的数字" class="headerlink" title="找到所有数组中消失的数字"></a>找到所有数组中消失的数字</h3><p><strong>题目描述：</strong>给你一个含<code>n</code> 个整数的数组 <code>nums</code> ，其中 <code>nums[i]</code> 在区间 <code>[1, n]</code> 内。请你找出所有在 <code>[1, n] </code>范围内但没有出现在 <code>nums </code>中的数字，并以数组的形式返回结果。</p>
@@ -141,12 +173,11 @@
 
 <h4 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h4><p>两个整数之间的汉明距离是对应位置上数字不同的位数。</p>
 <p>根据以上定义，我们使用异或运算，记为 <code>⊕</code>，当且仅当输入位不同时输出为 1。</p>
-<img src='../image/1.png' style='height:300px,width:300px'>
-
+<p><img src="/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/2.png" alt="异或操作"></p>
 <p>我们只需要判断出进行异或操作后得到的二进制数中含有多少个<code>1</code>即可</p>
 <h5 id="方法一：调用toString方法遍历实现"><a href="#方法一：调用toString方法遍历实现" class="headerlink" title="方法一：调用toString方法遍历实现"></a>方法一：调用<code>toString</code>方法遍历实现</h5><figure class="highlight js"><table><tr><td class="code"><pre><span class="line">**</span><br><span class="line"> * @param &#123;number&#125; x</span><br><span class="line"> * @param &#123;number&#125; y</span><br><span class="line"> * @<span class="keyword">return</span> &#123;number&#125;</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">var</span> hammingDistance = <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> res = x^y                <span class="comment">//进行异或操作</span></span><br><span class="line">  res = res.toString(<span class="number">2</span>)        <span class="comment">//将异或操作后的数字变为二进制字符串</span></span><br><span class="line">  <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">   <span class="keyword">for</span>(<span class="keyword">let</span> i =<span class="number">0</span>;i&lt;res.length;i++)&#123;         <span class="comment">//遍历字符串获得含有多少个1</span></span><br><span class="line">       <span class="keyword">if</span>(res[i]===<span class="string">&#x27;1&#x27;</span>)</span><br><span class="line">       index++</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> index</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h5 id="方法二：移位实现位计数"><a href="#方法二：移位实现位计数" class="headerlink" title="方法二：移位实现位计数"></a>方法二：移位实现位计数</h5><p><strong>思路及其实现：</strong><br><img src='../image/2.png' style='height:300px,width:300px'></p>
+<h5 id="方法二：移位实现位计数"><a href="#方法二：移位实现位计数" class="headerlink" title="方法二：移位实现位计数"></a>方法二：移位实现位计数</h5><p><strong>思路及其实现：</strong><br><img src="/2021/12/10/%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/2.png" alt="移位操作"></p>
 <p>具体地，记 <code>s=x^y</code>，我们可以不断地检查 <code>s</code>的最低位，如果最低位为 <code>1</code>，那么令计数器加一，然后我们令 <code>s</code> 整体右移一位，这样 <code>s</code> 的最低位将被舍去，原本的次低位就变成了新的最低位。我们重复这个过程直到 <code>s=0</code> 为止。这样计数器中就累计了 <code>s</code> 的二进制表示中 <code>1</code> 的数量。</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var hammingDistance = function(x, y) &#123;</span><br><span class="line">    let s = x ^ y, ret = 0;</span><br><span class="line">    while (s != 0) &#123;</span><br><span class="line">        ret += s &amp; 1;</span><br><span class="line">        s &gt;&gt;= 1;</span><br><span class="line">    &#125;</span><br><span class="line">    return ret;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -160,38 +191,6 @@
       </categories>
       <tags>
         <tag>位运算</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>最大子序和</title>
-    <url>/2021/12/07/%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C/</url>
-    <content><![CDATA[<p><strong>题目：</strong> 给定一个整数数组 <code>nums</code> ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和</p>
-<span id="more"></span>
-
-<h6 id="实例一："><a href="#实例一：" class="headerlink" title="实例一："></a>实例一：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]</span><br><span class="line">输出：6</span><br><span class="line">解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例二："><a href="#示例二：" class="headerlink" title="示例二："></a>示例二：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [1]</span><br><span class="line">输出：1</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例三："><a href="#示例三：" class="headerlink" title="示例三："></a>示例三：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [0]</span><br><span class="line">输出：0</span><br></pre></td></tr></table></figure>
-
-<h6 id="示例四："><a href="#示例四：" class="headerlink" title="示例四："></a>示例四：</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">输入：nums = [-1]</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h4 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h4><ul>
-<li>  首先对数组进行遍历，当前最大连续子序列和为 sum，结果为 max</li>
-<li>  如果 sum &gt; 0，则说明 sum 对结果有增益效果，则 sum 保留并加上当前遍历数字</li>
-<li>  如果 sum &lt;= 0，则说明 sum 对结果无增益效果，需要舍弃，则 sum 直接更新为当前遍历数字</li>
-<li>  每次比较 sum 和 max 的大小，将最大值置为 max，遍历结束返回结果</li>
-<li>  时间复杂度：O(n)</li>
-</ul>
-<h4 id="题解："><a href="#题解：" class="headerlink" title="题解："></a>题解：</h4><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;number[]&#125;</span> <span class="variable">nums</span></span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return <span class="type">&#123;number&#125;</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> maxSubArray = <span class="function"><span class="keyword">function</span> (<span class="params">nums</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> sum = nums[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">let</span> max = sum;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            sum = nums[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(sum, max);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> max;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>算法练习</category>
-      </categories>
-      <tags>
-        <tag>分而治之</tag>
-        <tag>动态规划</tag>
       </tags>
   </entry>
 </search>
